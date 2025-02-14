@@ -22,7 +22,10 @@ async def help_command(update: Update, context: CallbackContext):
         "/start - Introduce the bot\n"
         "/help - Show this help message\n"
         "/rules - Show group rules\n"
-        "/report - Report a scammer"
+        "/report - Report a scammer\n"
+        "/about - Learn about this bot\n"
+        "/contact - Contact the admin\n"
+        "/feedback - Send feedback"
     )
 
 async def rules(update: Update, context: CallbackContext):
@@ -32,10 +35,29 @@ async def rules(update: Update, context: CallbackContext):
         "2️⃣ No scam links\n"
         "3️⃣ Be respectful\n"
         "4️⃣ Only admins can post links"
+         "5 love each other"
     )
 
 async def report(update: Update, context: CallbackContext):
     await update.message.reply_text("📢 Report received! An admin will check it soon.")
+
+async def about(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        "🤖 **About SquadScamBot:**\n"
+        "This bot helps protect your group from scammers by enforcing verification, restricting links, and assisting admins."
+    )
+
+async def contact(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        "📞 **Contact Admin:**\n"
+        "If you need assistance, please contact the admin @WILDCATZOFWEB3."
+    )
+
+async def feedback(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        "💬 **Feedback:**\n"
+        "We appreciate your feedback! Send your suggestions or issues to @YourAdminUsername."
+    )
 
 async def welcome(update: Update, context: CallbackContext):
     for member in update.message.new_chat_members:
@@ -128,6 +150,9 @@ def main():
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("rules", rules))
     app.add_handler(CommandHandler("report", report))
+    app.add_handler(CommandHandler("about", about))
+    app.add_handler(CommandHandler("contact", contact))
+    app.add_handler(CommandHandler("feedback", feedback))
 
     app.add_handler(MessageHandler(filters.StatusUpdate.NEW_CHAT_MEMBERS, welcome))
     app.add_handler(CallbackQueryHandler(verify_user, pattern=r"^verify\|\d+\|\d+$"))
